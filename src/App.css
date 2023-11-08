@@ -1,0 +1,145 @@
+#root {
+    /* max-width: 1280px; */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0.3em;
+    background-color: black;
+}
+
+.header>a {
+    text-decoration: none;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    color: rgb(168, 167, 167);
+}
+
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 0.3em;
+    background-color: rgb(15, 3, 83);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 700;
+    color: rgb(168, 167, 167);
+    letter-spacing: 0.2em;
+    word-spacing: 0.3em;
+}
+
+.table {
+    max-width: 100rem;
+}
+
+.theader {
+    text-transform: capitalize;
+}
+
+.theader>div {
+    box-shadow: 1px 4px 5px 1px gray;
+    font-size: 1.3rem;
+    color: blue;
+    font-weight: 600;
+    /* line-height: 1.8rem; */
+}
+
+.tbody {
+    height: 47vh;
+    overflow-y: auto;
+}
+
+/* .tbody a,
+.tbody a:link,
+.tbody a:visited,
+.tbody a:focus,
+.tbody a:active {
+    text-decoration: none;
+    color: black;
+} */
+
+.clients-grid {
+    padding: 0.5em 1em;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr 1.5fr 1fr;
+    gap: 1rem;
+}
+
+.contracts-grid {
+    padding: 0.5em 1em;
+    display: grid;
+    grid-template-columns: 1fr 0.7fr 1.5fr 1fr 1fr 1.2fr 1.2fr 1fr;
+    gap: 1rem;
+}
+
+.trow:hover {
+    background-color: rgb(243, 243, 157);
+}
+
+.name {
+    text-align: left;
+    padding-left: 2rem;
+}
+
+/* .trow {
+  border-bottom: 1px solid black;
+} */
+
+img {
+    width: 100vw;
+    max-width: 100rem;
+    height: 30vh;
+}
+
+main>img {
+    width: auto;
+    height: 70vh;
+}
+
+.slogan {
+    margin: 1em 8em;
+    padding: 0.5em 0;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+}
+
+.client {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.client>section {
+    max-width: 30em;
+    width: 40vw;
+    min-height: 50vh;
+    height: auto;
+    margin: 2em;
+    padding: 1em;
+    /* border: 1px solid black; */
+    box-shadow: 5px -5px 15px 1px gray;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.client>section>label {
+    font-weight: 900;
+}
+
+.client>section>span {
+    margin-bottom: 1em;
+}
+
+.client>section>input {
+    padding: 0.1em 1em;
+    margin: 0 5em 1em 5em;
+    place-content: left;
+    font: inherit;
+    border: 1px solid gray;
+    border-radius: 0.5em;
+}
