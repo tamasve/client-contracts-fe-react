@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllClients, getClientsError, selectClientById, addNewClient, updateClient, deleteClient } from './clientsSlice';
-import clientSchema from "./clientsSchema";
+import { selectAllClients, getClientsError, selectClientById, addNewClient, updateClient, deleteClient } from '../data/clientsSlice';
+import clientSchema from "../data/schemas";
 
 
 export default function Client() {      // mapping: "clients/client/clientId" - clientId = taxnumber

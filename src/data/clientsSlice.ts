@@ -1,15 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from 'axios';
-import * as URLS from './data/urls';
-import clientSchema from "./clientsSchema";
+import * as URLS from './urls';
+import { clientSchema, clientState, actionPayloadWhenError } from "./schemas";
 
 
-// the interface for the inner data model
-export interface clientState {
-    clients: clientSchema[],
-    status: string,
-    error: string
-}
 
 // the inner data model
 const initialState: clientState = {
@@ -18,11 +12,6 @@ const initialState: clientState = {
     error: ''
 }
 
-// definitive feedback from BE when error
-type actionPayloadWhenError = {
-    message: string,
-    _id: number
-}
 
 // -- the Async Thunks for CRUD ops --
 

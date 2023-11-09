@@ -7,15 +7,15 @@
 import './App.css'
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { store } from './store'
+import { store } from './data/store'
 // import { fetchClients } from './clientsSlice'
 
-import Clients from './Clients'
-import Contracts from './Contracts'
-import Header from './Header'
-import Home from './Home'
-import Footer from './Footer'
-import Client from './Client'
+import Clients from './pages/Clients'
+import Contracts from './pages/Contracts'
+import Header from './elements/Header'
+import Home from './pages/Home'
+import Footer from './elements/Footer'
+import Client from './pages/Client'
 
 
 function App() {

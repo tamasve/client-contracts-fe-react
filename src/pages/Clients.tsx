@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from './clientsSlice'
+import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
 
 
 export default function Clients() {

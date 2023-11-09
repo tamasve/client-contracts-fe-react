@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import * as URLS from './data/urls';
+import * as URLS from '../data/urls';
 
 
 export default function Contracts() {
