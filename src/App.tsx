@@ -12,9 +12,9 @@ import { store } from './data/store'
 
 import Clients from './pages/Clients'
 import Contracts from './pages/Contracts'
-import Header from './elements/Header'
+import Header from './components/Header'
 import Home from './pages/Home'
-import Footer from './elements/Footer'
+import Footer from './components/Footer'
 import Client from './pages/Client'
 
 
