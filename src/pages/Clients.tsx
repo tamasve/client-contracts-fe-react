@@ -3,14 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
+import { clientSchema } from '../data/schemas';
 
 
 export default function Clients() {
 
     const dispatch = useDispatch();
-    const clients = useSelector(selectAllClients);
     const navigate = useNavigate();
-
+    
+    const clients: clientSchema[] = useSelector(selectAllClients);
     console.log("clients data received:")
     console.log(clients)
     const clientsStatus = useSelector(getClientsStatus);

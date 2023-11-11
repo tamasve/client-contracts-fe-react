@@ -1,7 +1,7 @@
 /**
  * THE FRONT-END PART OF MY 1st main JS full-stack project
- * 26-27, 29 Oct, 2, 6-8 Nov 2023
- * Last mod.: 8 Nov 2023
+ * 26-27, 29 Oct, 2, 6-10 Nov 2023
+ * Last mod.: 10 Nov 2023
  */
 
 import './App.css'
@@ -16,6 +16,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import Footer from './components/Footer'
 import Client from './pages/Client'
+import Role from './pages/Role'
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
               <Route path="client/:clientId" element={<Client />} />
             </Route>
             <Route path="contracts" element={<Contracts />} />
+            <Route path="role" element={<Role />} />
           </Routes>
           <Footer />
         </Router>
