@@ -119,7 +119,7 @@ main>img {
     min-height: 50vh;
     height: auto;
     margin: 2em;
-    padding: 1em;
+    padding: 1em 2em;
     /* border: 1px solid black; */
     box-shadow: 5px -5px 15px 1px gray;
     border-radius: 1em;
@@ -138,7 +138,7 @@ main>img {
 
 .client section input {
     padding: 0.1em 1em;
-    margin: 0.5em 3em 1em 3em;
+    margin: 0.5em 0em 1em 0em;
     place-content: left;
     font: inherit;
     border: 1px solid gray;
@@ -152,11 +152,15 @@ h1 {
     margin: 0.3em;
 }
 
+h2, h3 {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
 button {
     border-radius: 8px;
     border: 1px solid transparent;
-    padding: 0.4em;
-    margin: 1em 4em;
+    padding: 0.5em 1em;
+    margin: 1em 1em;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
@@ -164,6 +168,10 @@ button {
     color: whitesmoke;
     cursor: pointer;
     transition: border-color 0.25s;
+}
+
+td>button {
+    margin: 0.3em 1em;
 }
 
 button:hover {
@@ -180,6 +188,7 @@ button:disabled {
 }
 
 td {
-    font-size: 0.7em;
-    place-content: left;
+    font-size: 0.9em;
+    text-align: left;
+    padding: 0 0 0 1em;
 }

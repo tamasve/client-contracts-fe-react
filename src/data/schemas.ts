@@ -43,7 +43,8 @@ export interface contractState {
 export interface userSchema {
     username: string,
     password: string,
-    roles: object,
+    email: string,
+    roles?: object,
     _id?: string
 }
 

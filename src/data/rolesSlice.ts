@@ -143,6 +143,6 @@ export const selectAllRoles = (state) => state.rolesReducer.roles;
 export const getRolesStatus = (state) => state.rolesReducer.status;
 export const getRolesError = (state) => state.rolesReducer.error;
 
-export const selectRoleById = (state, roleId: string) => state.rolesReducer.roles.find( (role: roleSchema) => role._id === roleId );
+export const selectRoleByName = (state, roleName: string) => state.rolesReducer.roles.find( (role: roleSchema) => role.rolename === roleName );
 
 export default rolesSlice.reducer;

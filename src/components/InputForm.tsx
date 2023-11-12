@@ -5,8 +5,8 @@
  *      3, 10 NOV 2023
  */
 
-export default function Form({ data, setData, dataHandler, clazz }:
-                { data: object, setData: React.Dispatch<React.SetStateAction<object>>, dataHandler: () => Promise<void> | void, clazz: string }) {
+export default function InputForm({ data, setData, dataHandler, title, buttonCaption, clazz }:
+                { data: object, setData: React.Dispatch<React.SetStateAction<object>>, dataHandler: () => Promise<void> | void, title: string, buttonCaption: string, clazz: string }) {
 
 
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
@@ -25,14 +25,14 @@ export default function Form({ data, setData, dataHandler, clazz }:
 
     return (
         <section className={clazz}>
-            <h2>Create or Modify an item...</h2>
+            <h2>{title}</h2>
             {Object.entries(data).map((entry, index) => 
                 <article key={index}>
                     <label htmlFor={entry[0]} > {entry[0][0].toUpperCase() + entry[0].slice(1)} </label>
                     <input type="text" id={entry[0]} name={entry[0]} value={entry[1]} onChange={(e) => inputChange(e, entry[0])} />
                 </article>
             )}
-            <button type="button" disabled={!canSave} onClick={saveNewData} >Create / Modify</button>
+            <button type="button" disabled={!canSave} onClick={saveNewData} >{buttonCaption}</button>
         </section>
     )
 

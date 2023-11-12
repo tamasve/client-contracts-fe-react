@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllRoles, getRolesStatus, getRolesError, selectRoleById, fetchRoles, addNewRole, updateRole, deleteRole } from '../data/rolesSlice';
 import { roleSchema } from "../data/schemas";
-import Form from '../components/Form';
+import InputForm from '../components/InputForm';
 
 
 export default function Role() {      // mapping: "roles/role/roleId" - roleId = taxnumber
@@ -48,7 +48,7 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
         const { _id } = role;
         try {
             dispatch( deleteRole({_id}) ).unwrap();
-            navigate("/roles");
+            navigate("/role");
         } catch(err) {
             console.error(err);
         }
@@ -58,17 +58,17 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
     const modifyRole = () => {
         const {rolename, description} = role;
         setRoleObject( {rolename, description} );
-        setDisplay("flex");
+        // setDisplay("flex");
     }
 
     // New: make form visible with void fields
     const newRole = () => {
         setRoleObject({rolename: "", description: ""})
-        setDisplay("flex");
+        // setDisplay("flex");
     }
 
     // Save: get role data from roleObject, _id from role - and save it in MongoDB through Redux store
-    const saveNewRole = () => {
+    const saveRole = () => {
         console.log("save role...")
         const foundRole = roles.find( (role) => role.rolename === roleObject.rolename );  // is it new or modified?
         if (!foundRole) console.log("new role");
@@ -79,7 +79,8 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
             const { _id } = role;
             if (!foundRole)  dispatch( addNewRole( {rolename, description} ) ).unwrap();
             else  dispatch( updateRole( {rolename, description, _id} ) ).unwrap();
-            navigate("/clients");
+            newRole();
+            navigate("/role");
         } catch (err) {
             console.error(`Failed to save new role: ${err}`);
         } finally {
@@ -87,19 +88,19 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
         }
     }
     
-    const createContent = () => {
+    const createTable = () => {
         return <table>
             <thead>
             <tr>
                 {Object.keys(roles[0]).map(key => (
-                    <th key={key}>{key}</th>
+                    <th key={key}>{key.startsWith("__") ? null : key.startsWith("_") ? "" : key}</th>
                 ))}
             </tr>
             </thead>
             <tbody>
             {Object.entries(roles).map(([key, entry]) => (
-                <tr>
-                    <td>{entry._id}</td>
+                <tr key={key}>
+                    <td><button>Add role...</button></td>
                     <td>{entry.rolename}</td>
                     <td>{entry.description}</td>
                 </tr>
@@ -113,7 +114,7 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
     switch (rolesStatus) {
         case "loading": content = <p>"loading roles..."</p>; break;
         case "failed": content = <h2>*** {rolesError} ***</h2>; break;
-        case "fulfilled": content = createContent();
+        case "fulfilled": content = createTable();
     }
 
     // -- return JSX: 2 forms (display + modify) --
@@ -121,12 +122,14 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
     return (
         <article className="client">
 
+
             <section>
 
+                <h1>Roles</h1>
                 {content}
 
-                <label>Name</label><span>{role.rolename}</span>
-                <label>Taxnumber</label><span>{role.description}</span>
+                {/* <label>Name</label><span>{role.rolename}</span>
+                <label>Taxnumber</label><span>{role.description}</span> */}
 
                 <button type="button" onClick={delRole} >Delete role...</button>
                 <button type="button" onClick={modifyRole} >Modify role...</button>
@@ -136,7 +139,12 @@ export default function Role() {      // mapping: "roles/role/roleId" - roleId =
  
             <div>
 
-                <Form data={roleObject} setData={setRoleObject} dataHandler={saveNewRole} clazz="form" />
+            <InputForm data={roleObject}
+                        setData={setRoleObject}
+                        dataHandler={saveRole}
+                        title={"Create or Modify a Role..."}
+                        buttonCaption={"Create / Modify"}
+                        clazz="form" />
 
                 {rolesError && <h3>Error! - {rolesError}</h3>}
 

@@ -17,6 +17,7 @@ import Home from './pages/Home'
 import Footer from './components/Footer'
 import Client from './pages/Client'
 import Role from './pages/Role'
+import RegistrateUser from './pages/RegistrateUser'
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             </Route>
             <Route path="contracts" element={<Contracts />} />
             <Route path="role" element={<Role />} />
+            <Route path="registrate" element={<RegistrateUser />} />
           </Routes>
           <Footer />
         </Router>

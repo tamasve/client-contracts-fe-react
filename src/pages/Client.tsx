@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { selectAllClients, getClientsError, selectClientById, addNewClient, updateClient, deleteClient } from '../data/clientsSlice';
 import { clientSchema } from "../data/schemas";
-import Form from '../components/Form';
+import InputForm from '../components/InputForm';
 
 
 export default function Client() {      // mapping: "clients/client/clientId" - clientId = taxnumber
@@ -55,7 +55,7 @@ export default function Client() {      // mapping: "clients/client/clientId" - 
     }
 
     // Save: get client data from clientObject, _id from client - and save it in MongoDB through Redux store
-    const saveNewClient = () => {
+    const saveClient = () => {
         console.log("save client...")
         const foundClient = clients.find( (client) => client.taxnumber === clientObject.taxnumber );  // is it new or modified?
         if (!foundClient) console.log("new client");
@@ -96,7 +96,12 @@ export default function Client() {      // mapping: "clients/client/clientId" - 
  
             <div style={{display: display}}>
 
-                <Form data={clientObject} setData={setClientObject} dataHandler={saveNewClient} clazz="form" />
+                <InputForm data={clientObject}
+                            setData={setClientObject}
+                            dataHandler={saveClient}
+                            title={"Create or Modify a Client..."}
+                            buttonCaption={"Create / Modify"}
+                            clazz="form" />
 
                 {error && <h3>Error! - {error}</h3>}
                 
