@@ -12,7 +12,7 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
-    const usersStatus = useSelector(getUsersStatus);
+    const usersStatus: string = useSelector(getUsersStatus);
     const usersError: string = useSelector( getUsersError );
     
     
@@ -72,7 +72,7 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
     }
     
 
-    // -- return JSX: 2 forms (display + modify) --
+    // -- return JSX: registration form --
 
     return (
         <article className="genForm">

@@ -109,7 +109,7 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
     // -- A function to handle roles: 1. add a role to a user / 2. delete a role of a user
     // It decides between the two based on the button caption (I could not manage to give callback parameter to createRoleTable...)
 
-    const canModify: boolean = requestStatus === "idle";
+    const canModify: boolean = requestStatus === "idle";    // Add role + Del role buttons are active only after DB/store actions have finished
 
     const handleRole = (caption: string, roleName: string) => {
         if (canModify) {

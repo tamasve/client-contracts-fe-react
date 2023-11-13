@@ -19,3 +19,6 @@ export const GET_ROLES = "/roles";
 export const NEW_ROLE = "/roles/new";
 export const UPDATE_ROLE = "/roles/update/";
 export const DELETE_ROLE = "/roles/delete/";
+
+export const AUTH = "/auth";
+export const REFRESH = "/refresh";

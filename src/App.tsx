@@ -1,7 +1,7 @@
 /**
  * THE FRONT-END PART OF MY 1st main JS full-stack project
- * 26-27, 29 Oct, 2, 6-12 Nov 2023
- * Last mod.: 12 Nov 2023
+ * 26-27, 29 Oct, 2, 6-13 Nov 2023
+ * Last mod.: 13 Nov 2023
  */
 
 import './App.css'
