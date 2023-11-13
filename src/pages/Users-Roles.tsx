@@ -42,9 +42,10 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
     console.log("roles data received:")
     console.log(roles)
 
+    // the user object, selected in the drop-down list by name
     const [selectedUser, setSelectedUser] = useState<userSchema>(users[0] || {roles: []});      // void array when status = pending
 
-    const [addRequestStatus, setAddRequestStatus] = useState<string>("idle")
+    const [requestStatus, setRequestStatus] = useState<string>("idle")
 
     
     // query a role for modification
@@ -56,7 +57,7 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
     const [roleObject, setRoleObject] = useState<roleSchema>({rolename, description});
 
 
-    // -- BUTTON CALLBACKS... >>>
+    // -- BUTTON CALLBACKS for Roles form... >>>
 
     const delRole = () => {
         const { _id } = role;
@@ -88,31 +89,64 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
         if (!foundRole) console.log("new role");
             else console.log("existing role");
         try {
-            setAddRequestStatus("pending");
+            setRequestStatus("pending");
             const {rolename, description} = roleObject;
             const { _id } = role;
             if (!foundRole)  dispatch( addNewRole( {rolename, description} ) ).unwrap();
             else  dispatch( updateRole( {rolename, description, _id} ) ).unwrap();
             newRole();
-            navigate("/role");
+            navigate("/users-roles");
         } catch (err) {
             console.error(`Failed to save new role: ${err}`);
         } finally {
-            setAddRequestStatus("idle");
+            setRequestStatus("idle");
         }
     }
 
-    // >>> BUTTON CALLBACKS end
+    // >>> BUTTON CALLBACKS for Roles form end
+
 
     // -- A function to handle roles: 1. add a role to a user / 2. delete a role of a user
     // It decides between the two based on the button caption (I could not manage to give callback parameter to createRoleTable...)
 
+    const canModify: boolean = requestStatus === "idle";
+
     const handleRole = (caption: string, roleName: string) => {
-        console.log(caption)
-        console.log(roleName)
+        if (canModify) {
+            console.log(`${caption} - ${roleName} at ${selectedUser.username}`);
+            if (!selectedUser) return;      // users data was not loaded yet
+
+            let userRoles = selectedUser.roles as roleSchema[];
+            let existingRole: roleSchema;
+            switch (caption.split(" ")[0]) {
+                case "Add":
+                    existingRole = userRoles.find(role => role.rolename === roleName) as roleSchema;
+                    if (!existingRole) {
+                        userRoles = [...userRoles, roles.find(role => role.rolename === roleName) as roleSchema];
+                    }
+                    break;
+                case "Delete":
+                    console.log("delete")
+                    if (roleName !== "Read") {
+                        userRoles = userRoles.filter(role => role.rolename !== roleName) as roleSchema[];
+                        console.log(userRoles)
+                    }
+            }
+
+            if (selectedUser.roles?.length !== userRoles.length)
+                try {
+                    setRequestStatus("pending");
+                    dispatch( updateUser( {...selectedUser, roles: userRoles} ) );
+                    navigate("/users-roles");   // Redirect?
+                } catch (err) {
+                    console.error("Action failed")
+                } finally {
+                    setRequestStatus("idle");
+                }
+        }
     }
 
-    // -- Role table creator function >>>
+    // -- Role table creator function (for 2 forms: all roles / all roles of a user) >>>
 
     const createRoleTable = ( data: roleSchema[], buttonCaption: string ) => (
         data.length === 0 ? <h3>roles did not load in yet...</h3>
@@ -128,7 +162,13 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
             <tbody>
                 {Object.entries(data).map(([key, entry]) => (
                     <tr key={key}>
-                        <td><button onClick={() => handleRole(buttonCaption, entry.rolename)}>{buttonCaption}</button></td>
+                        <td>
+                            <button
+                                onClick={() => handleRole(buttonCaption, entry.rolename)}
+                                disabled={!canModify}>
+                                {buttonCaption}
+                            </button>
+                        </td>
                         <td>{entry.rolename}</td>
                         <td>{entry.description}</td>
                     </tr>

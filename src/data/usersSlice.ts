@@ -114,9 +114,9 @@ const usersSlice = createSlice({
 
             .addCase(updateUser.rejected, (state, action) => {
                 console.log("update user - case: rejected");
+                console.log(action)     // error message and _id (sent by controller method on server)
                 const data = action.payload as actionPayloadWhenError
-                console.log(data)     // error message and _id
-                state.error = data.message || `error during updating ${data._id}`;
+                state.error = data.message || action.error.message as string;   // controller method message / Axios error message
             })
 
             // delete user cases
@@ -130,9 +130,9 @@ const usersSlice = createSlice({
 
             .addCase(deleteUser.rejected, (state, action) => {
                 console.log("delete user - case: rejected");
+                console.log(action)     // error message and _id (sent by controller method on server)
                 const data = action.payload as actionPayloadWhenError
-                console.log(data)     // error message and _id
-                state.error = data.message || `error during deleting ${data._id}`;
+                state.error = data.message || action.error.message as string;   // controller method message / Axios error message
             })
     }
 });
