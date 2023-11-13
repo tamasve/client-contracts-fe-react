@@ -152,9 +152,9 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
         case "fulfilled": 
             usersOptions = users.map((user: userSchema) => (
                 <option key={user._id} value={user.username}>{user.username}</option>
-                ))
-            }
-            usersRolesTable = createRoleTable(selectedUser.roles as roleSchema[], "Delete role...", (name:string) => addNewRole(name));
+                ));
+            usersRolesTable = createRoleTable(selectedUser.roles as roleSchema[], "Delete role...");
+    }
 
     const userSelected = (selectedUserName: string) => {
         console.log(users.find(user => user.username === selectedUserName));
