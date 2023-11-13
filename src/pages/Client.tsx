@@ -78,7 +78,7 @@ export default function Client() {      // mapping: "clients/client/clientId" - 
     // -- return JSX: 2 forms (display + modify) --
 
     return (
-        <article className="client">
+        <article className="genForm">
 
             <section>
 

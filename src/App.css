@@ -107,44 +107,6 @@ main>img {
     border-bottom: 1px solid black;
 }
 
-.client {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
-.client section {
-    min-width: 25em;
-    width: auto;
-    min-height: 50vh;
-    height: auto;
-    margin: 2em;
-    padding: 1em 2em;
-    /* border: 1px solid black; */
-    box-shadow: 5px -5px 15px 1px gray;
-    border-radius: 1em;
-    display: flex;
-    flex-direction: column;
-}
-
-.client section label {
-    font-weight: 900;
-    display: block;
-}
-
-.client section span {
-    margin-bottom: 1em;
-}
-
-.client section input {
-    padding: 0.1em 1em;
-    margin: 0.5em 0em 1em 0em;
-    place-content: left;
-    font: inherit;
-    border: 1px solid gray;
-    border-radius: 0.5em;
-}
-
 h1 {
     font-size: 3.2em;
     line-height: 1.1;
@@ -154,24 +116,70 @@ h1 {
 
 h2, h3 {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 1em;
 }
+
+
+/** A general form in this app: a frame which includes a <section> that contains all elements: input, label, button **/
+
+.genForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.genForm section {
+    min-width: 25em;
+    width: auto;
+    min-height: 50vh;
+    height: auto;
+    margin: 2em;
+    padding: 1em 2em;
+    box-shadow: 5px -5px 15px 1px gray;
+    border-radius: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.genForm section label {
+    font-weight: 900;
+    display: block;
+}
+
+.genForm section span {
+    margin-bottom: 1em;
+}
+
+.genForm section input {
+    padding: 0.1em 1em;
+    margin: 0.5em 0em 1em 0em;
+    place-content: left;
+    font: inherit;
+    border: 1px solid gray;
+    border-radius: 0.5em;
+}
+
+/** form section end... **/
+
 
 button {
     border-radius: 8px;
     border: 1px solid transparent;
     padding: 0.5em 1em;
     margin: 1em 1em;
+    /* max-width: 18em; */
+    justify-content: space-around;
     font-size: 1em;
     font-weight: 500;
     font-family: inherit;
     background-color: #1a1a1a;
     color: whitesmoke;
     cursor: pointer;
-    transition: border-color 0.25s;
+    transition: border-color 0.5s;
 }
 
 td>button {
-    margin: 0.3em 1em;
+    margin: 0.3em 1em 0.3em -1em;
 }
 
 button:hover {
@@ -188,7 +196,14 @@ button:disabled {
 }
 
 td {
-    font-size: 0.9em;
+    font-size: 0.8em;
     text-align: left;
     padding: 0 0 0 1em;
+}
+
+select {
+    font: inherit;
+    width: 20em;
+    padding: 0.3em 0;
+    margin-bottom: 1em;
 }

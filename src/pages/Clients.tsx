@@ -39,7 +39,7 @@ export default function Clients() {
 
         // table body - every cell has its own class name (=header): "className={key}"
         const buildTableBody = () => {
-            const tbody = clients.map((obj) => (
+            const tbody = clients.map((obj: clientSchema) => (
                 <div onDoubleClick={() => { navigate("/clients/client/" + obj.taxnumber) }} className='trow clients-grid' key={obj["taxnumber"]}>
                     {Object.entries(obj).map(([key, value]) =>
                         (key.startsWith("_") ? null : <div className={key} key={key}>{value}</div>))}

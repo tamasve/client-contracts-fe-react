@@ -31,7 +31,7 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
     const roles: roleSchema[] = useSelector( selectAllRoles );
     console.log("roles:")
     console.log(roles)
-    const basicRole = useSelector( (state) => selectRoleByName(state, "Read") );
+    const basicRole: roleSchema = useSelector( (state) => selectRoleByName(state, "Read") );
     console.log("basic role:")
     console.log(basicRole)
     // const basicRole = roles.find( role => role.rolename === "Read" ) as roleSchema;
@@ -60,7 +60,8 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
             setAddRequestStatus("pending");
             const {username, password, email} = userObject;
             // const { _id } = user;
-            if (!foundUser)  dispatch( addNewUser( {username, password, email, roles: {[basicRole.rolename]: basicRole.description}} ) ).unwrap();
+            if (!foundUser)  dispatch( addNewUser( {username, password, email, roles: [basicRole]} ) ).unwrap();
+            // if (!foundUser)  dispatch( addNewUser( {username, password, email, roles: {[basicRole.rolename]: basicRole.description}} ) ).unwrap();
             // else  dispatch( updateUser( {username, password, email, _id} ) ).unwrap();
             navigate("/clients");
         } catch (err) {
@@ -74,15 +75,15 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
     // -- return JSX: 2 forms (display + modify) --
 
     return (
-        <article className="client">
+        <article className="genForm">
  
             <div>
 
                 <InputForm data={userObject}
                             setData={setUserObject}
                             dataHandler={saveUser}
-                            title={"Registrate yourself..."} 
-                            buttonCaption={"Submit"}
+                            title={"Please, registrate yourself..."} 
+                            buttonCaption={"Registrate"}
                             clazz="form" />
 
                 {usersError && <h3>Error! - {usersError}</h3>}

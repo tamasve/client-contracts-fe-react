@@ -44,7 +44,7 @@ export interface userSchema {
     username: string,
     password: string,
     email: string,
-    roles?: object,
+    roles?: roleSchema[],
     _id?: string
 }
 
