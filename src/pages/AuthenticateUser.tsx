@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { authenticateUser, refreshAuth, getAuthStatus, getAuthError, getUserName, getAccessToken } from '../data/authSlice';
+import { authenticateUser, clearAuth, getAuthStatus, getAuthError, getUserName, getAccessToken } from '../data/authSlice';
 import { userSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
 import axios from 'axios';
@@ -30,8 +30,8 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
 
     }, [authError, authStatus, userName]);
 
-    const refresh = async () => {
-        dispatch( refreshAuth({"UserAuth": {...userObject}}) ).unwrap();
+    const logout = async () => {
+        dispatch( clearAuth() ).unwrap();
     }
 
     const loginUser = async () => {
@@ -66,7 +66,7 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
                     error={authStatus === "failed" ? authError : ""}
                 />
 
-                <button onClick={refresh}>Refresh</button>
+                <button onClick={logout}>Logout</button>
 
             </div>
 
