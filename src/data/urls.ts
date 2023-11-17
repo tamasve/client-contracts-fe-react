@@ -22,3 +22,4 @@ export const DELETE_ROLE = "/roles/delete/";
 
 export const AUTH = "/auth";
 export const REFRESH = "/refresh";
+export const LOGOUT = "/logout";

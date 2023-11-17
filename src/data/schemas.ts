@@ -70,6 +70,13 @@ export interface roleState {
     error: string
 }
 
+// auth inner data model
+export interface authState {
+    username: string,
+    accessToken: string,
+    status: string,
+    error: string
+}
 
 
 // definitive feedback from BE when error occurs

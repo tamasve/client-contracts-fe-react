@@ -1,5 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { authenticateUser, refreshAuth, getAuthStatus, getAuthError, getUserName, getAccessToken } from '../data/authSlice';
 import { userSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
 import axios from 'axios';
@@ -10,18 +12,37 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
     
     const navigate = useNavigate();
 
+    const dispatch = useDispatch();
+
     const [userObject, setUserObject] = useState<Partial<userSchema>>({username: "", password: ""});
 
+    const authStatus = useSelector(getAuthStatus);
+    const authError = useSelector(getAuthError);
+    const userName = useSelector(getUserName);
+    const accessToken = useSelector(getAccessToken);
+    console.log(userName);
+    console.log(accessToken);
+
+    
+    useEffect( () => {
+
+        console.log("useEffect does nothing but re-renders");
+
+    }, [authError, authStatus, userName]);
+
+    const refresh = async () => {
+        dispatch( refreshAuth({"UserAuth": {...userObject}}) ).unwrap();
+    }
 
     const loginUser = async () => {
 
         console.log("login user...")
         try {
-            const response = await axios.post(URLS.REQUEST_URL + URLS.AUTH, {"UserAuth": {...userObject}} );
+            dispatch( authenticateUser({"UserAuth": {...userObject}}) ).unwrap();
             console.log("user authentication")
-            console.log(response.data);     // as a response we await the access token
+            // console.log(response.data);     // as a response we await the access token
 
-            navigate("/home");
+            // navigate("/home");
         } catch (err) {
             console.error(`Failed to autheticate the user: ${err}`);
         }
@@ -35,14 +56,20 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
  
             <div>
 
-                <InputForm data={userObject}
-                            setData={setUserObject}
-                            dataHandler={loginUser}
-                            title={"Please, login..."}
-                            buttonCaption={"Login"}
-                            clazz="form" />
+                <InputForm 
+                    data={userObject}
+                    setData={setUserObject}
+                    dataHandler={loginUser}
+                    title={"Please, login..."}
+                    buttonCaption={"Login"}
+                    clazz="form"
+                    error={authStatus === "failed" ? authError : ""}
+                />
+
+                <button onClick={refresh}>Refresh</button>
 
             </div>
+
         
         </article>
     )

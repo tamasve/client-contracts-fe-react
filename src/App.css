@@ -119,6 +119,10 @@ h2, h3 {
     margin-bottom: 1em;
 }
 
+h3 {
+    font-style: oblique;
+}
+
 
 /** A general form in this app: a frame which includes a <section> that contains all elements: input, label, button **/
 

@@ -18,6 +18,7 @@ import Footer from './components/Footer'
 import Client from './pages/Client'
 import UsersRoles from './pages/Users-Roles'
 import RegistrateUser from './pages/RegistrateUser'
+import AuthenticateUser from './pages/AuthenticateUser'
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
             <Route path="contracts" element={<Contracts />} />
             <Route path="users-roles" element={<UsersRoles />} />
             <Route path="registrate" element={<RegistrateUser />} />
+            <Route path="authenticate" element={<AuthenticateUser />} />
           </Routes>
           <Footer />
         </Router>

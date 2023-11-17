@@ -79,14 +79,15 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
  
             <div>
 
-                <InputForm data={userObject}
-                            setData={setUserObject}
-                            dataHandler={saveUser}
-                            title={"Please, registrate yourself..."} 
-                            buttonCaption={"Registrate"}
-                            clazz="form" />
-
-                {usersError && <h3>Error! - {usersError}</h3>}
+                <InputForm 
+                    data={userObject}
+                    setData={setUserObject}
+                    dataHandler={saveUser}
+                    title={"Please, registrate yourself..."} 
+                    buttonCaption={"Registrate"}
+                    clazz="form"
+                    error={usersStatus === "failed" ? usersError : ""}
+                    />
 
             </div>
         

@@ -5,8 +5,8 @@
  *      3, 10 NOV 2023
  */
 
-export default function InputForm({ data, setData, dataHandler, title, buttonCaption, clazz }:
-                { data: object, setData: React.Dispatch<React.SetStateAction<object>>, dataHandler: () => Promise<void> | void, title: string, buttonCaption: string, clazz: string }) {
+export default function InputForm({ data, setData, dataHandler, title, buttonCaption, clazz, error }:
+                { data: object, setData: React.Dispatch<React.SetStateAction<object>>, dataHandler: () => Promise<void> | void, title: string, buttonCaption: string, clazz: string, error: string }) {
 
 
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
@@ -25,7 +25,9 @@ export default function InputForm({ data, setData, dataHandler, title, buttonCap
 
     return (
         <section className={clazz}>
+
             <h2>{title}</h2>
+
             {Object.entries(data).map((entry, index) => 
                 <article key={index}>
                     <label htmlFor={entry[0]} > {entry[0][0].toUpperCase() + entry[0].slice(1)} </label>
@@ -33,6 +35,9 @@ export default function InputForm({ data, setData, dataHandler, title, buttonCap
                 </article>
             )}
             <button type="button" disabled={!canSave} onClick={saveNewData} >{buttonCaption}</button>
+
+            {error !== "" && <h3>{error}</h3>}
+
         </section>
     )
 
