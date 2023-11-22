@@ -66,6 +66,7 @@ const authSlice = createSlice({
                 state.status = "fulfilled";
                 state.error = "";
                 state.accessToken = action.payload.accessToken;
+                localStorage.setItem("token", action.payload.accessToken);
                 console.log(action);        // to check the complete action object
             })
             

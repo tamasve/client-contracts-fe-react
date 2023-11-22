@@ -4,12 +4,17 @@ import { useNavigate } from 'react-router-dom';
 
 import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
 import { clientSchema } from '../data/schemas';
+import { getAccessToken } from '../data/authSlice';
 
 
 export default function Clients() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    let accessToken = useSelector(getAccessToken);
+    console.log("accessToken:")
+    console.log(accessToken)
     
     const clients: clientSchema[] = useSelector(selectAllClients);
     console.log("clients data received:")
@@ -18,10 +23,12 @@ export default function Clients() {
     const clientsError = useSelector(getClientsError);
 
 
+
     // data refresh with Redux
     useEffect(() => {
-        if (clientsStatus === "idle") dispatch(fetchClients());
-    }, [clientsStatus, dispatch])
+        accessToken = localStorage.getItem("token");
+        if (clientsStatus === "idle") dispatch(fetchClients(accessToken));
+    }, [accessToken, clientsStatus, dispatch])
 
 
 

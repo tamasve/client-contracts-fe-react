@@ -4,12 +4,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import { selectAllClients, getClientsError, selectClientById, addNewClient, updateClient, deleteClient } from '../data/clientsSlice';
 import { clientSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
+import { getAccessToken } from '../data/authSlice';
 
 
 export default function Client() {      // mapping: "clients/client/clientId" - clientId = taxnumber
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    let accessToken: string = useSelector(getAccessToken);
+    console.log("accessToken:")
+    console.log(accessToken)
 
     const [addRequestStatus, setAddRequestStatus] = useState<string>("idle")
 
@@ -64,8 +69,9 @@ export default function Client() {      // mapping: "clients/client/clientId" - 
             setAddRequestStatus("pending");
             const {name, taxnumber, segment, headquarters, foundation} = clientObject;
             const { _id } = client;
-            if (!foundClient)  dispatch( addNewClient( {name, taxnumber, segment, headquarters, foundation} ) ).unwrap();
-            else  dispatch( updateClient( {name, taxnumber, segment, headquarters, foundation, _id} ) ).unwrap();
+            accessToken = localStorage.getItem("token");
+            if (!foundClient)  dispatch( addNewClient( { initialClient: {name, taxnumber, segment, headquarters, foundation}, accessToken } ) ).unwrap();
+            else  dispatch( updateClient( { initialClient: {name, taxnumber, segment, headquarters, foundation, _id}, accessToken } ) ).unwrap();
             navigate("/clients");
         } catch (err) {
             console.error(`Failed to save new client: ${err}`);
