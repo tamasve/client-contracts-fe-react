@@ -93,6 +93,7 @@ const contractsSlice = createSlice({
 
             .addCase(addNewContract.fulfilled, (state, action) => {
                 console.log("add new contract - case: fulfilled");
+                state.status = "fulfilled";
                 console.log(action);
                 const {contract_id, client_taxnumber, asset_num, asset_type, gross_asset_value, financed_amount, start_date, end_date, margin, remaining_debt} = action.payload;    // extract contract props...
                 state.contracts.push( {contract_id, client_taxnumber, asset_num, asset_type, gross_asset_value, financed_amount, start_date, end_date, margin, remaining_debt} );     // ... then save the object into slice state
@@ -100,6 +101,7 @@ const contractsSlice = createSlice({
 
             .addCase(addNewContract.rejected, (state, action) => {
                 console.log("add new contract - case: rejected");
+                state.status = "failed";
                 state.error = action.error.message as string;
             })
 
@@ -107,6 +109,7 @@ const contractsSlice = createSlice({
 
             .addCase(updateContract.fulfilled, (state, action) => {
                 console.log("update contract - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const contracts = state.contracts.filter( (contract) => contract._id !== _id );
                 state.contracts = [...contracts, action.payload];
@@ -114,6 +117,7 @@ const contractsSlice = createSlice({
 
             .addCase(updateContract.rejected, (state, action) => {
                 console.log("update contract - case: rejected");
+                state.status = "failed";
                 const data = action.payload as actionPayloadWhenError
                 console.log(data)     // error message and _id
                 state.error = data.message || `error during updating ${data._id}`;
@@ -123,6 +127,7 @@ const contractsSlice = createSlice({
 
             .addCase(deleteContract.fulfilled, (state, action) => {
                 console.log("delete contract - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const contracts = state.contracts.filter( (contract) => contract._id !== _id );
                 state.contracts = contracts;
@@ -130,6 +135,7 @@ const contractsSlice = createSlice({
 
             .addCase(deleteContract.rejected, (state, action) => {
                 console.log("delete contract - case: rejected");
+                state.status = "failed";
                 const data = action.payload as actionPayloadWhenError
                 console.log(data)     // error message and _id
                 state.error = data.message || `error during deleting ${data._id}`;

@@ -93,6 +93,7 @@ const usersSlice = createSlice({
 
             .addCase(addNewUser.fulfilled, (state, action) => {
                 console.log("add new user - case: fulfilled");
+                state.status = "fulfilled";
                 console.log(action);
                 const {username, password, roles} = action.payload;    // extract user props...
                 state.users.push( {username, password, roles} );     // ... then save the object into slice state
@@ -100,6 +101,7 @@ const usersSlice = createSlice({
 
             .addCase(addNewUser.rejected, (state, action) => {
                 console.log("add new user - case: rejected");
+                state.status = "failed";
                 state.error = action.error.message as string;
             })
 
@@ -107,6 +109,7 @@ const usersSlice = createSlice({
 
             .addCase(updateUser.fulfilled, (state, action) => {
                 console.log("update user - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const users = state.users.filter( (user) => user._id !== _id );
                 state.users = [...users, action.payload];
@@ -114,6 +117,7 @@ const usersSlice = createSlice({
 
             .addCase(updateUser.rejected, (state, action) => {
                 console.log("update user - case: rejected");
+                state.status = "failed";
                 console.log(action)     // error message and _id (sent by controller method on server)
                 const data = action.payload as actionPayloadWhenError
                 state.error = data.message || action.error.message as string;   // controller method message / Axios error message
@@ -123,6 +127,7 @@ const usersSlice = createSlice({
 
             .addCase(deleteUser.fulfilled, (state, action) => {
                 console.log("delete user - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const users = state.users.filter( (user) => user._id !== _id );
                 state.users = users;
@@ -130,6 +135,7 @@ const usersSlice = createSlice({
 
             .addCase(deleteUser.rejected, (state, action) => {
                 console.log("delete user - case: rejected");
+                state.status = "failed";
                 console.log(action)     // error message and _id (sent by controller method on server)
                 const data = action.payload as actionPayloadWhenError
                 state.error = data.message || action.error.message as string;   // controller method message / Axios error message

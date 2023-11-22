@@ -98,6 +98,7 @@ const clientsSlice = createSlice({
 
             .addCase(addNewClient.fulfilled, (state, action) => {
                 console.log("add new client - case: fulfilled");
+                state.status = "fulfilled";
                 console.log(action);
                 const {name, taxnumber, segment, headquarters, foundation} = action.payload;    // extract client props...
                 state.clients.push( {name, taxnumber, segment, headquarters, foundation} );     // ... then save the object into slice state
@@ -105,6 +106,7 @@ const clientsSlice = createSlice({
 
             .addCase(addNewClient.rejected, (state, action) => {
                 console.log("add new client - case: rejected");
+                state.status = "failed";
                 state.error = action.error.message as string;
             })
 
@@ -112,6 +114,7 @@ const clientsSlice = createSlice({
 
             .addCase(updateClient.fulfilled, (state, action) => {
                 console.log("update client - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const clients = state.clients.filter( (client) => client._id !== _id );
                 state.clients = [...clients, action.payload];
@@ -119,6 +122,7 @@ const clientsSlice = createSlice({
 
             .addCase(updateClient.rejected, (state, action) => {
                 console.log("update client - case: rejected");
+                state.status = "failed";
                 const data = action.payload as actionPayloadWhenError
                 console.log(data)     // error message and _id
                 state.error = data.message || `error during updating ${data._id}`;
@@ -128,6 +132,7 @@ const clientsSlice = createSlice({
 
             .addCase(deleteClient.fulfilled, (state, action) => {
                 console.log("delete client - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const clients = state.clients.filter( (client) => client._id !== _id );
                 state.clients = clients;
@@ -135,6 +140,7 @@ const clientsSlice = createSlice({
 
             .addCase(deleteClient.rejected, (state, action) => {
                 console.log("delete client - case: rejected");
+                state.status = "failed";
                 const data = action.payload as actionPayloadWhenError
                 console.log(data)     // error message and _id
                 state.error = data.message || `error during deleting ${data._id}`;

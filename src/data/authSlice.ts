@@ -54,7 +54,7 @@ const authSlice = createSlice({
     extraReducers(builder) {
         builder
 
-            // auth. user cases
+            // "auth. user" cases
 
             .addCase(authenticateUser.pending, (state, action) => {
                 console.log("authenticate user - case: pending");
@@ -66,7 +66,7 @@ const authSlice = createSlice({
                 state.status = "fulfilled";
                 state.error = "";
                 state.accessToken = action.payload.accessToken;
-                localStorage.setItem("token", action.payload.accessToken);
+                localStorage.setItem("token", action.payload.accessToken);  // re-render seems to interfere with Redux, I should use localStorage instead
                 console.log(action);        // to check the complete action object
             })
             
@@ -82,7 +82,7 @@ const authSlice = createSlice({
                 }
             })
 
-            // refresh auth cases
+            // "refresh auth" cases
 
             .addCase(refreshAuth.fulfilled, (state, action) => {
                 console.log("refresh access token - case: fulfilled");
@@ -90,6 +90,7 @@ const authSlice = createSlice({
                 state.status = "fulfilled";
                 state.error = "";
                 state.accessToken = action.payload.accessToken;
+                localStorage.setItem("token", action.payload.accessToken);
             })
             
             .addCase(refreshAuth.rejected, (state, action) => {
@@ -99,13 +100,15 @@ const authSlice = createSlice({
                 state.error = action.error.message as string;
             })
             
-            // clear auth cases
+            // "clear auth" cases
             
             .addCase(clearAuth.fulfilled, (state, action) => {
                 console.log("logout - case: fulfilled");
                 console.log(action);
                 state.status = "fulfilled";
                 state.error = "";
+                state.accessToken = "";
+                localStorage.removeItem("token");
             })
 
             .addCase(clearAuth.rejected, (state, action) => {

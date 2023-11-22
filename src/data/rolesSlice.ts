@@ -93,6 +93,7 @@ const rolesSlice = createSlice({
 
             .addCase(addNewRole.fulfilled, (state, action) => {
                 console.log("add new role - case: fulfilled");
+                state.status = "fulfilled";
                 console.log(action);
                 const {rolename, description} = action.payload;    // extract role props...
                 state.roles.push( {rolename, description} );     // ... then save the object into slice state
@@ -100,6 +101,7 @@ const rolesSlice = createSlice({
 
             .addCase(addNewRole.rejected, (state, action) => {
                 console.log("add new role - case: rejected");
+                state.status = "failed";
                 state.error = action.error.message as string;
             })
 
@@ -107,6 +109,7 @@ const rolesSlice = createSlice({
 
             .addCase(updateRole.fulfilled, (state, action) => {
                 console.log("update role - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const roles = state.roles.filter( (role) => role._id !== _id );
                 state.roles = [...roles, action.payload];
@@ -114,6 +117,7 @@ const rolesSlice = createSlice({
 
             .addCase(updateRole.rejected, (state, action) => {
                 console.log("update role - case: rejected");
+                state.status = "failed";
                 const data = action.payload as actionPayloadWhenError
                 console.log(data)     // error message and _id
                 state.error = data.message || `error during updating ${data._id}`;
@@ -123,6 +127,7 @@ const rolesSlice = createSlice({
 
             .addCase(deleteRole.fulfilled, (state, action) => {
                 console.log("delete role - case: fulfilled");
+                state.status = "fulfilled";
                 const { _id } = action.payload;
                 const roles = state.roles.filter( (role) => role._id !== _id );
                 state.roles = roles;
@@ -130,6 +135,7 @@ const rolesSlice = createSlice({
 
             .addCase(deleteRole.rejected, (state, action) => {
                 console.log("delete role - case: rejected");
+                state.status = "failed";
                 const data = action.payload as actionPayloadWhenError
                 console.log(data)     // error message and _id
                 state.error = data.message || `error during deleting ${data._id}`;

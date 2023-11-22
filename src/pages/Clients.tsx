@@ -1,10 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
 import { clientSchema } from '../data/schemas';
-import { getAccessToken } from '../data/authSlice';
+import { refreshAuth, getAccessToken, getAuthStatus } from '../data/authSlice';
 
 
 export default function Clients() {
@@ -12,8 +12,10 @@ export default function Clients() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let accessToken = useSelector(getAccessToken);
-    console.log("accessToken:")
+    let prevStatus = useRef("idle");
+
+    let accessToken = useSelector(getAccessToken);      // unfortunately this does not work - always void in Redux store (reason is under search)
+    console.log("accessToken:")     // for check
     console.log(accessToken)
     
     const clients: clientSchema[] = useSelector(selectAllClients);
@@ -21,13 +23,28 @@ export default function Clients() {
     console.log(clients)
     const clientsStatus = useSelector(getClientsStatus);
     const clientsError = useSelector(getClientsError);
-
-
-
-    // data refresh with Redux
+    console.log(`clients / status: ${clientsStatus} - error: ${clientsError}`);
+    
+    const authStatus = useSelector(getAuthStatus);
+    
+    
+    // data refresh with Redux - combined with authentication handling:
+    // when access token expires try to refresh it and after that request for the data again
     useEffect(() => {
-        accessToken = localStorage.getItem("token");
-        if (clientsStatus === "idle") dispatch(fetchClients(accessToken));
+
+        console.log(`useEffect -- clients / status: ${clientsStatus} - prev.status: ${prevStatus.current} - error: ${clientsError}`);  // check
+        console.log(`auth.status: ${authStatus}`)
+
+        accessToken = localStorage.getItem("token");  // re-render seems to interfere with Redux, accessToken state is always void, I should use localStorage instead
+
+        // start a request for a new access token... but only once!
+        if (clientsStatus === "failed" && prevStatus.current !== "failed")  dispatch(refreshAuth());
+
+        // data request only if data status is "idle" or if there was a failed data request but we have a new access token (indicated by authStatus)
+        if (clientsStatus === "idle" || (clientsStatus === "failed" && authStatus === "fulfilled")) dispatch(fetchClients(accessToken));
+
+        prevStatus.current = clientsStatus;     // save current data request status for the next render in order to avoid infinite re-rendering
+
     }, [accessToken, clientsStatus, dispatch])
 
 
