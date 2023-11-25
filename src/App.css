@@ -40,6 +40,10 @@
     text-transform: capitalize;
 }
 
+section>div>.smaller-font {
+    font-size: 1em;
+}
+
 .theader>div {
     box-shadow: 1px 4px 5px 1px gray;
     font-size: 1.3rem;
@@ -70,10 +74,10 @@
 }
 
 .contracts-grid {
-    padding: 0.5em 1em;
+    padding: 0.2em;
     display: grid;
-    grid-template-columns: 1fr 0.7fr 1.5fr 1fr 1fr 1.2fr 1.2fr 1fr;
-    gap: 1rem;
+    grid-template-columns: 1fr 1.5fr 0.6fr 1.1fr 1.2fr 1.2fr 1fr 1fr 1fr 1fr;
+    gap: 0.3rem;
 }
 
 .trow:hover {

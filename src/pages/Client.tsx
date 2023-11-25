@@ -107,10 +107,9 @@ export default function Client() {      // mapping: "clients/client/clientId" - 
                             dataHandler={saveClient}
                             title={"Create or Modify a Client..."}
                             buttonCaption={"Create / Modify"}
-                            clazz="form" />
-
-                {error && <h3>Error! - {error}</h3>}
-                
+                            clazz="form"
+                            error={error}
+                />
             </div>
         
         </article>

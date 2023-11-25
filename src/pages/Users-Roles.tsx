@@ -248,9 +248,9 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
                             dataHandler={saveRole}
                             title={"Create or Modify a Role..."}
                             buttonCaption={"Create / Modify"}
-                            clazz="form" />
-
-                {rolesError && <h3>Error! - {rolesError}</h3>}
+                            clazz="form"
+                            error={rolesError}
+                />
             </div>
         
         </article>

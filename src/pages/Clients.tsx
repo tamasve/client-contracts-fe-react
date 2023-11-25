@@ -21,11 +21,11 @@ export default function Clients() {
     const clients: clientSchema[] = useSelector(selectAllClients);
     console.log("clients data received:")
     console.log(clients)
-    const clientsStatus = useSelector(getClientsStatus);
-    const clientsError = useSelector(getClientsError);
+    const clientsStatus: string = useSelector(getClientsStatus);
+    const clientsError: string = useSelector(getClientsError);
     console.log(`clients / status: ${clientsStatus} - error: ${clientsError}`);
     
-    const authStatus = useSelector(getAuthStatus);
+    const authStatus: string = useSelector(getAuthStatus);
     
     
     // data refresh with Redux - combined with authentication handling:
@@ -86,7 +86,7 @@ export default function Clients() {
     // -- --
 
 
-    // Content, depending on fetch status
+    // Content, depending on Redux fetch async thunk status
     console.log(`clients request status = ${clientsStatus}`);
     let content: JSX.Element = <></>;
     switch (clientsStatus) {

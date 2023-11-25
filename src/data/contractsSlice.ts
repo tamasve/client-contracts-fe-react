@@ -33,10 +33,10 @@ export const addNewContract = createAsyncThunk('contracts/addNewContract',
 )
 
 export const updateContract = createAsyncThunk('contracts/updateContract',
-    async (initialContract: contractSchema) => {
+    async ({initialContract, accessToken}: {initialContract: contractSchema, accessToken: string}) => {
         const { _id } = initialContract;
         const response = await axios.put(URLS.REQUEST_URL + URLS.UPDATE_CONTRACT + _id, initialContract)
-        console.log(`update contract - async thunk: ID ${_id} / ${initialContract.name}`);
+        console.log(`update contract - async thunk: ID ${_id} / ${initialContract.contract_id}`);
         return response.data;
     }
 )

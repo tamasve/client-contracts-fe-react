@@ -87,7 +87,7 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
                     buttonCaption={"Registrate"}
                     clazz="form"
                     error={usersStatus === "failed" ? usersError : ""}
-                    />
+                />
 
             </div>
         

@@ -6,7 +6,9 @@
  */
 
 export default function InputForm({ data, setData, dataHandler, title, buttonCaption, clazz, error }:
-                { data: object, setData: React.Dispatch<React.SetStateAction<object>>, dataHandler: () => Promise<void> | void, title: string, buttonCaption: string, clazz: string, error: string }) {
+                { data: object, setData: React.Dispatch<React.SetStateAction<object>>,
+                    dataHandler: () => Promise<void> | void, title: string, buttonCaption: string, clazz: string, error: string })
+    {
 
 
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
