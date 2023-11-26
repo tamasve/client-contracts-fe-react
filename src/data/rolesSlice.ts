@@ -42,7 +42,7 @@ export const updateRole = createAsyncThunk('roles/updateRole',
 )
 
 export const deleteRole = createAsyncThunk('roles/deleteRole',
-    async (initialRole: roleSchema) => {
+    async (initialRole: Partial<roleSchema>) => {
         const { _id } = initialRole;
         const response = await axios.delete(URLS.REQUEST_URL + URLS.DELETE_ROLE + _id);
         console.log(`delete role - async thunk: ${_id}`);

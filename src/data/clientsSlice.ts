@@ -47,7 +47,7 @@ export const updateClient = createAsyncThunk('clients/updateClient',
 )
 
 export const deleteClient = createAsyncThunk('clients/deleteClient',
-    async (initialClient: clientSchema) => {
+    async (initialClient: Partial<clientSchema>) => {
         const { _id } = initialClient;
         const response = await axios.delete(URLS.REQUEST_URL + URLS.DELETE_CLIENT + _id);
         console.log(`delete client - async thunk: ${_id}`);

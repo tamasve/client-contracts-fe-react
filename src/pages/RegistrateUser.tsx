@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllUsers, getUsersStatus, getUsersError, selectUserById, fetchUsers, addNewUser, updateUser, deleteUser } from '../data/usersSlice';
+import type { AppDispatch } from '../data/store';
+import { selectAllUsers, getUsersStatus, getUsersError, fetchUsers, addNewUser } from '../data/usersSlice';
 import { selectAllRoles, selectRoleByName, fetchRoles } from '../data/rolesSlice';
 import { userSchema, roleSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
@@ -9,7 +10,7 @@ import InputForm from '../components/InputForm';
 
 export default function RegistrateUser() {      // mapping: "users/user/userId" - userId = taxnumber
     
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
     
     const usersStatus: string = useSelector(getUsersStatus);
@@ -37,7 +38,7 @@ export default function RegistrateUser() {      // mapping: "users/user/userId" 
     // const basicRole = roles.find( role => role.rolename === "Read" ) as roleSchema;
 
 
-    const [addRequestStatus, setAddRequestStatus] = useState<string>("idle")
+    const [, setAddRequestStatus] = useState<string>("idle")
 
     
     // query a user for modification

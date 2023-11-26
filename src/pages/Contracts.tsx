@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
+import type { AppDispatch } from '../data/store';
 import { useNavigate } from 'react-router-dom';
 
 import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
@@ -10,7 +11,7 @@ import { refreshAuth, getAccessToken, getAuthStatus } from '../data/authSlice';
 
 export default function Contracts() {
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     // const [contracts, setContracts] = useState([{ Name: "" }]);

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import type { AppDispatch } from '../data/store';
 import { selectAllClients, getClientsError, selectClientById, addNewClient, updateClient, deleteClient } from '../data/clientsSlice';
 import { clientSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
@@ -9,14 +10,14 @@ import { getAccessToken } from '../data/authSlice';
 
 export default function Client() {      // mapping: "clients/client/clientId" - clientId = taxnumber
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();    // thereby Dispatch will know about async thunks
     const navigate = useNavigate();
 
     let accessToken: string = useSelector(getAccessToken);
     console.log("accessToken:")
     console.log(accessToken)
 
-    const [addRequestStatus, setAddRequestStatus] = useState<string>("idle")
+    const [, setAddRequestStatus] = useState<string>("idle")
 
     // control the visibility of modifying / new creating form:  display = none / flex
     const [display, setDisplay] = useState<string>("none");
@@ -69,7 +70,7 @@ export default function Client() {      // mapping: "clients/client/clientId" - 
             setAddRequestStatus("pending");
             const {name, taxnumber, segment, headquarters, foundation} = clientObject;
             const { _id } = client;
-            accessToken = localStorage.getItem("token");
+            accessToken = localStorage.getItem("token") || "";
             if (!foundClient)  dispatch( addNewClient( { initialClient: {name, taxnumber, segment, headquarters, foundation}, accessToken } ) ).unwrap();
             else  dispatch( updateClient( { initialClient: {name, taxnumber, segment, headquarters, foundation, _id}, accessToken } ) ).unwrap();
             navigate("/clients");

@@ -17,8 +17,8 @@ const initialState: authState = {
 // -- the Async Thunks for authentication ops --
 
 export const authenticateUser = createAsyncThunk('auth/authenticateUser',
-    async (userAuth: Partial<userSchema>) => {
-        const response = await axios.post(URLS.REQUEST_URL + URLS.AUTH, userAuth, { withCredentials: true });   // withCredentials = true - to aut.ly send + receive cookies (jwt)
+    async (user: Partial<userSchema>) => {
+        const response = await axios.post(URLS.REQUEST_URL + URLS.AUTH, {"UserAuth": user}, { withCredentials: true });   // withCredentials = true - to aut.ly send + receive cookies (jwt)
         console.log("authenticate user - async thunk");
         console.log(response)
         console.log({...response.data});

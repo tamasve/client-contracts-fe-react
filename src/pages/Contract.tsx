@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import type { AppDispatch } from '../data/store';
 import { selectAllContracts, getContractsError, selectContractById, addNewContract, updateContract, deleteContract } from '../data/contractsSlice';
 import { contractSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
@@ -9,14 +10,14 @@ import { getAccessToken } from '../data/authSlice';
 
 export default function Contract() {      // mapping: "contracts/contract/contractId" - contractId = taxnumber
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     let accessToken: string = useSelector(getAccessToken);
     console.log("accessToken:")
     console.log(accessToken)
 
-    const [addRequestStatus, setAddRequestStatus] = useState<string>("idle")
+    const [, setAddRequestStatus] = useState<string>("idle")
 
     // control the visibility of modifying / new creating form:  display = none / flex
     const [display, setDisplay] = useState<string>("none");
@@ -125,7 +126,7 @@ export default function Contract() {      // mapping: "contracts/contract/contra
                     margin,
                     remaining_debt} = contractObject;
             const { _id } = contract;
-            accessToken = localStorage.getItem("token");
+            accessToken = localStorage.getItem("token") || "";
             if (!foundContract)  dispatch( addNewContract( { initialContract:
                 {contract_id,
                 client_taxnumber,

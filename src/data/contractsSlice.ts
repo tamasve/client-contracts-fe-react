@@ -42,7 +42,7 @@ export const updateContract = createAsyncThunk('contracts/updateContract',
 )
 
 export const deleteContract = createAsyncThunk('contracts/deleteContract',
-    async (initialContract: contractSchema) => {
+    async (initialContract: Partial<contractSchema>) => {
         const { _id } = initialContract;
         const response = await axios.delete(URLS.REQUEST_URL + URLS.DELETE_CONTRACT + _id);
         console.log(`delete contract - async thunk: ${_id}`);

@@ -1,18 +1,17 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import type { AppDispatch } from '../data/store';
 import { authenticateUser, clearAuth, getAuthStatus, getAuthError, getUserName, getAccessToken } from '../data/authSlice';
 import { userSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
-import axios from 'axios';
-import * as URLS from '../data/urls';
 
 
 export default function AuthenticateUser() {      // mapping: "users/user/userId" - userId = taxnumber
     
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
 
     const [userObject, setUserObject] = useState<Partial<userSchema>>({username: "", password: ""});
 
@@ -38,7 +37,7 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
 
         console.log("login user...")
         try {
-            dispatch( authenticateUser({"UserAuth": {...userObject}}) ).unwrap();
+            dispatch( authenticateUser({...userObject}) ).unwrap();
             console.log("user authentication")
             // console.log(response.data);     // as a response we await the access token
 

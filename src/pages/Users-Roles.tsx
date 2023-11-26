@@ -1,15 +1,16 @@
-import { useState, useEffect, FC } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { selectAllRoles, getRolesStatus, getRolesError, selectRoleById, fetchRoles, addNewRole, updateRole, deleteRole } from '../data/rolesSlice';
-import { selectAllUsers, getUsersStatus, getUsersError, selectUserById, fetchUsers, addNewUser, updateUser, deleteUser } from '../data/usersSlice';
+import type { AppDispatch } from '../data/store';
+import { selectAllRoles, getRolesStatus, getRolesError, fetchRoles, addNewRole, updateRole, deleteRole } from '../data/rolesSlice';
+import { selectAllUsers, getUsersStatus, getUsersError, fetchUsers, updateUser } from '../data/usersSlice';
 import { userSchema, roleSchema } from "../data/schemas";
 import InputForm from '../components/InputForm';
 
 
 export default function UsersRoles() {      // mapping: "roles/role/roleId" - roleId = taxnumber
     
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
     const usersStatus = useSelector(getUsersStatus);
@@ -62,7 +63,7 @@ export default function UsersRoles() {      // mapping: "roles/role/roleId" - ro
     const delRole = () => {
         const { _id } = role;
         try {
-            dispatch( deleteRole({_id}) ).unwrap();
+            dispatch( deleteRole({ _id }) ).unwrap();
             navigate("/role");
         } catch(err) {
             console.error(err);
