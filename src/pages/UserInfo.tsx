@@ -17,7 +17,7 @@ export default function UserInfo() {      // mapping: "users/user/userId" - user
 
     const authStatus = useSelector(getAuthStatus);
     const authError = useSelector(getAuthError);
-    let userName: string = useSelector(getUserName);
+    const userName: string = useSelector(getUserName);
     // const accessToken = useSelector(getAccessToken);
     console.log(userName);
     // console.log(accessToken);
@@ -51,7 +51,7 @@ export default function UserInfo() {      // mapping: "users/user/userId" - user
     // -- return JSX: a label with the username and a logout button --
 
     return (
-        < >
+        <span>
  
             {/* <div> */}
 
@@ -65,14 +65,15 @@ export default function UserInfo() {      // mapping: "users/user/userId" - user
                     error={authStatus === "failed" ? authError : ""}
                 /> */}
 
-                <label htmlFor="name">{userName}</label>
+                <label htmlFor="name">* {userName} * </label>
 
                 <button onClick={logout}>Logout</button>
+
 
             {/* </div> */}
 
         
-        </>
+        </span>
     )
 
 }

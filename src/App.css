@@ -20,6 +20,21 @@
     color: rgb(168, 167, 167);
 }
 
+.header button {
+    margin: 0;
+    padding: 0 0.5em;
+}
+
+.header label {
+    color: white;
+}
+
+.header span {
+    background-color: gray;
+    padding: 0 0.5em;,
+    border-radius: 2em;
+}
+
 .footer {
     display: flex;
     flex-direction: row;

@@ -112,6 +112,7 @@ const authSlice = createSlice({
                 state.error = "";
                 state.accessToken = "";
                 localStorage.removeItem("token");
+                localStorage.removeItem("user");
             })
 
             .addCase(clearAuth.rejected, (state, action) => {

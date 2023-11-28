@@ -17,7 +17,6 @@ const initialState: clientState = {
 
 export const fetchClients = createAsyncThunk('clients/fetchClients',
     async (accessToken) => {
-        console.log("async - accessToken:")
         const response = await axios.get(URLS.REQUEST_URL + URLS.GET_CLIENTS, {headers: {Authorization: `Bearer ${accessToken}`}});
         console.log("fetch clients - async thunk");
         console.log([...response.data])
@@ -81,7 +80,7 @@ const clientsSlice = createSlice({
                 console.log("fetch clients - case: fulfilled");
                 state.status = "fulfilled";
                 state.clients = action.payload;
-                console.log(action);        // to check the complete action object
+                console.log(action);        // to check the complete action object - only for DEV
             })
             
             .addCase(fetchClients.rejected, (state, action) => {

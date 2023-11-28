@@ -16,12 +16,8 @@ export default function Clients() {
     const prevStatus = useRef("idle");
 
     let accessToken: string | null = useSelector(getAccessToken);      // unfortunately this does not work - always void in Redux store (reason is under search)
-    console.log("accessToken:")     // for check
-    console.log(accessToken)
     
     const clients: clientSchema[] = useSelector(selectAllClients);
-    console.log("clients data received:")
-    console.log(clients)
     const clientsStatus: string = useSelector(getClientsStatus);
     const clientsError: string = useSelector(getClientsError);
     console.log(`clients / status: ${clientsStatus} - error: ${clientsError}`);
