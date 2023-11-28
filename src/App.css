@@ -5,6 +5,7 @@
 }
 
 .header {
+    min-width: 80vw;
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;

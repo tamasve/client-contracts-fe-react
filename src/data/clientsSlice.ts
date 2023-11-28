@@ -18,7 +18,6 @@ const initialState: clientState = {
 export const fetchClients = createAsyncThunk('clients/fetchClients',
     async (accessToken) => {
         console.log("async - accessToken:")
-        console.log(accessToken)
         const response = await axios.get(URLS.REQUEST_URL + URLS.GET_CLIENTS, {headers: {Authorization: `Bearer ${accessToken}`}});
         console.log("fetch clients - async thunk");
         console.log([...response.data])
@@ -28,7 +27,6 @@ export const fetchClients = createAsyncThunk('clients/fetchClients',
 
 export const addNewClient = createAsyncThunk('clients/addNewClient',
     async ({initialClient, accessToken}: {initialClient: clientSchema, accessToken: string}) => {
-        console.log(accessToken)
         const response = await axios.post(URLS.REQUEST_URL + URLS.NEW_CLIENT, initialClient, {headers: {Authorization: `Bearer ${accessToken}`}});
         console.log("new client - async thunk");
         return response.data;
@@ -38,7 +36,6 @@ export const addNewClient = createAsyncThunk('clients/addNewClient',
 export const updateClient = createAsyncThunk('clients/updateClient',
     async ({initialClient, accessToken}: {initialClient: clientSchema, accessToken: string}) => {
         console.log("update client")
-        console.log(accessToken)
         const { _id } = initialClient;
         const response = await axios.put(URLS.REQUEST_URL + URLS.UPDATE_CLIENT + _id, initialClient, {headers: {Authorization: `Bearer ${accessToken}`}})
         console.log(`update client - async thunk: ID ${_id} / ${initialClient.name}`);

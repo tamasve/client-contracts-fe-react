@@ -16,8 +16,8 @@ const initialState: contractState = {
 // -- the Async Thunks for CRUD ops --
 
 export const fetchContracts = createAsyncThunk('contracts/fetchContracts',
-    async () => {
-        const response = await axios.get(URLS.REQUEST_URL + URLS.GET_CONTRACTS);
+    async (accessToken) => {
+        const response = await axios.get(URLS.REQUEST_URL + URLS.GET_CONTRACTS, {headers: {Authorization: `Bearer ${accessToken}`}});
         console.log("fetch contracts - async thunk");
         console.log([...response.data])
         return [...response.data];      // shallow array copy
@@ -25,8 +25,8 @@ export const fetchContracts = createAsyncThunk('contracts/fetchContracts',
 )
 
 export const addNewContract = createAsyncThunk('contracts/addNewContract',
-    async (initialContract: contractSchema) => {
-        const response = await axios.post(URLS.REQUEST_URL + URLS.NEW_CONTRACT, initialContract);
+    async ({initialContract, accessToken}: {initialContract: contractSchema, accessToken: string}) => {
+        const response = await axios.post(URLS.REQUEST_URL + URLS.NEW_CONTRACT, initialContract, {headers: {Authorization: `Bearer ${accessToken}`}});
         console.log("new contract - async thunk");
         return response.data;
     }
@@ -35,7 +35,7 @@ export const addNewContract = createAsyncThunk('contracts/addNewContract',
 export const updateContract = createAsyncThunk('contracts/updateContract',
     async ({initialContract, accessToken}: {initialContract: contractSchema, accessToken: string}) => {
         const { _id } = initialContract;
-        const response = await axios.put(URLS.REQUEST_URL + URLS.UPDATE_CONTRACT + _id, initialContract)
+        const response = await axios.put(URLS.REQUEST_URL + URLS.UPDATE_CONTRACT + _id, initialContract, {headers: {Authorization: `Bearer ${accessToken}`}})
         console.log(`update contract - async thunk: ID ${_id} / ${initialContract.contract_id}`);
         return response.data;
     }
@@ -44,7 +44,7 @@ export const updateContract = createAsyncThunk('contracts/updateContract',
 export const deleteContract = createAsyncThunk('contracts/deleteContract',
     async (initialContract: Partial<contractSchema>) => {
         const { _id } = initialContract;
-        const response = await axios.delete(URLS.REQUEST_URL + URLS.DELETE_CONTRACT + _id);
+        const response = await axios.delete(URLS.REQUEST_URL + URLS.DELETE_CONTRACT + _id, {headers: {Authorization: `Bearer ${accessToken}`}});
         console.log(`delete contract - async thunk: ${_id}`);
         if (response?.status === 200) return response.data  // ? id ?
         return `${response?.status}: ${response?.statusText}`;

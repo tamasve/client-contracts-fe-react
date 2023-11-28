@@ -1,18 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../data/store';
 import { useNavigate } from 'react-router-dom';
 
-import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
+import { selectAllClients } from '../data/clientsSlice'
 import { fetchContracts, selectAllContracts, getContractsStatus, getContractsError } from '../data/contractsSlice'
 import { clientSchema, contractSchema } from '../data/schemas';
-import { refreshAuth, getAccessToken, getAuthStatus } from '../data/authSlice';
+import { refreshAuth, getAuthStatus } from '../data/authSlice';
 
 
 export default function Contracts() {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+
+    const prevStatus = useRef("idle");
 
     // const [contracts, setContracts] = useState([{ Name: "" }]);
 
@@ -22,10 +24,24 @@ export default function Contracts() {
     const contractsStatus: string = useSelector(getContractsStatus);
     const contractsError: string = useSelector(getContractsError);
 
-    // data refresh
+    const authStatus: string = useSelector(getAuthStatus);
+
+    // data refresh with Redux - combined with authentication handling:
+    // when access token expires try to refresh it and after that request for the data again
     useEffect(() => {
 
-        if (contractsStatus === "idle")  dispatch(fetchContracts());
+        console.log(`useEffect -- contracts / status: ${contractsStatus} - prev.status: ${prevStatus.current} - error: ${contractsError}`);  // check
+        console.log(`auth.status: ${authStatus}`)
+
+        const accessToken: string = localStorage.getItem("token") || "";
+
+        // start a request for a new access token... but only once!
+        if (contractsStatus === "failed" && prevStatus.current !== "failed")  dispatch(refreshAuth());
+
+        // data request only if data status is "idle" or if there was a failed data request but we have a new access token (indicated by authStatus)
+        if (contractsStatus === "idle" || (contractsStatus === "failed" && authStatus === "fulfilled"))  dispatch(fetchContracts(accessToken));
+
+        prevStatus.current = contractsStatus;     // save current data request status for the next render in order to avoid infinite re-rendering
 
     }, [contractsStatus, dispatch])
 
@@ -71,12 +87,8 @@ export default function Contracts() {
             </>
         )
     }
-   // -- --
+    // -- --
 
-    // select row to modify
-    const click = (text) => {
-        console.log(text)
-    }
 
     // Content, depending on Redux fetch async thunk status
     console.log(`clients request status = ${contractsStatus}`);

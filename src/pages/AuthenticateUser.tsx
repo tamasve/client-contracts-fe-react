@@ -29,9 +29,6 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
 
     }, [authError, authStatus, userName]);
 
-    const logout = async () => {
-        dispatch( clearAuth() ).unwrap();
-    }
 
     const loginUser = async () => {
 
@@ -64,8 +61,6 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
                     clazz="form"
                     error={authStatus === "failed" ? authError : ""}
                 />
-
-                <button onClick={logout}>Logout</button>
 
             </div>
 

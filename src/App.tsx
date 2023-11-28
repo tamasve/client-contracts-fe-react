@@ -1,7 +1,10 @@
 /**
  * THE FRONT-END PART OF MY 1st main JS full-stack project
- * 26-27, 29 Oct, 2, 6-13, 17, 23-25 Nov 2023
- * Last mod.: 25 Nov 2023
+ * Nov 2023
+ * Last mod.: 26 Nov 2023
+ * 
+ * Special solution: JWT authentication FE part with a(n auth.) slice of Redux (not by using i.g. useToken and useUser hooks in the components)
+ * 
  */
 
 import './App.css'
@@ -20,6 +23,7 @@ import UsersRoles from './pages/Users-Roles'
 import RegistrateUser from './pages/RegistrateUser'
 import AuthenticateUser from './pages/AuthenticateUser'
 import Contract from './pages/Contract'
+import UserInfo from './pages/UserInfo'
 
 
 function App() {
@@ -44,6 +48,7 @@ function App() {
                         <Route path="users-roles" element={<UsersRoles />} />
                         <Route path="registrate" element={<RegistrateUser />} />
                         <Route path="authenticate" element={<AuthenticateUser />} />
+                        <Route path="userinfo" element={<UserInfo />} />
                     </Routes>
                     <Footer />
                 </Router>

@@ -66,7 +66,9 @@ const authSlice = createSlice({
                 state.status = "fulfilled";
                 state.error = "";
                 state.accessToken = action.payload.accessToken;
+                state.username = action.payload.username;   // BE sends back the username
                 localStorage.setItem("token", action.payload.accessToken);  // re-render seems to interfere with Redux, I should use localStorage instead
+                localStorage.setItem("user", action.payload.username);
                 console.log(action);        // to check the complete action object
             })
             
@@ -106,6 +108,7 @@ const authSlice = createSlice({
                 console.log("logout - case: fulfilled");
                 console.log(action);
                 state.status = "fulfilled";
+                state.username = "";
                 state.error = "";
                 state.accessToken = "";
                 localStorage.removeItem("token");

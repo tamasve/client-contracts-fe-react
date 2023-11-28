@@ -13,7 +13,7 @@ export default function Clients() {
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
 
-    let prevStatus = useRef("idle");
+    const prevStatus = useRef("idle");
 
     let accessToken: string | null = useSelector(getAccessToken);      // unfortunately this does not work - always void in Redux store (reason is under search)
     console.log("accessToken:")     // for check
