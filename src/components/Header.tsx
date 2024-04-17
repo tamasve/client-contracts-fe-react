@@ -1,7 +1,7 @@
-import {Link} from "react-router-dom";
-import { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { authenticateUser, clearAuth, getAuthStatus, getAuthError, getUserName, getAccessToken } from '../data/authSlice';
+import { Link } from "react-router-dom";
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { getUserName } from '../data/authSlice';
 import UserInfo from "../pages/UserInfo";
 
 export default function Header() {

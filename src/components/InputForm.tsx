@@ -1,6 +1,6 @@
 /**
- *  FORM for filling an object with arbitrary number of props
- *  params: data object, its setter function, data handler function (save into DB), css class name
+ *  The general FORM for filling an object with arbitrary number of props
+ *  params: data object, its setter function, data handler function (for saving into DB), css class name, error message
  * 
  *      3, 10 NOV 2023
  */
@@ -12,7 +12,7 @@ export default function InputForm({ data, setData, dataHandler, title, buttonCap
 
 
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>, key: string) => {
-        const newData = {...data, [key]: e.target.value};   // change the value belonging to the given key ([key]: only accepted this way)
+        const newData = {...data, [key]: e.target.value};   // change the value belonging to the given key
         setData(newData);
     }
     

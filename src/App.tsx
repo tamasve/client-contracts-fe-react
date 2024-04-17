@@ -3,7 +3,7 @@
  * Nov 2023
  * Last mod.: 26 Nov 2023
  * 
- * Special solution: JWT authentication FE part with a(n auth.) slice of Redux (not by using i.g. useToken and useUser hooks in the components)
+ * Special solution: JWT authentication FE part with a(n auth.) slice of Redux (not by using i.g. unique useToken and useUser hooks in the components)
  * 
  */
 

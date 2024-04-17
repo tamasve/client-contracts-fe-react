@@ -48,6 +48,7 @@ export default function Contracts() {
 
 
     // -- CREATE CONTENT function --
+    // props beginning with "_" are skipped...
 
     function createContent() {
         // table header
