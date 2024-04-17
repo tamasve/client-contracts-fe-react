@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../data/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 
 import { selectAllClients } from '../data/clientsSlice'
 import { fetchContracts, selectAllContracts, getContractsStatus, getContractsError } from '../data/contractsSlice'
@@ -13,6 +13,7 @@ export default function Contracts() {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const prevStatus = useRef("idle");
 
@@ -96,7 +97,7 @@ export default function Contracts() {
     let content: JSX.Element = <></>;
     switch (contractsStatus) {
         case "loading": content = <p>"loading clients..."</p>; break;
-        case "failed": content = <h2>*** {contractsError} ***</h2>; break;
+        case "failed": return <Navigate to="/authenticate" state={{prevUrl: location}} />;
         case "fulfilled": content = createContent();
     }
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../data/store';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate, useLocation } from 'react-router-dom';
 
 import { fetchClients, selectAllClients, getClientsStatus, getClientsError } from '../data/clientsSlice'
 import { clientSchema } from '../data/schemas';
@@ -12,6 +12,7 @@ export default function Clients() {
 
     const dispatch = useDispatch<AppDispatch>();
     const navigate = useNavigate();
+    const location = useLocation();
 
     const prevStatus = useRef("idle");
 
@@ -88,7 +89,7 @@ export default function Clients() {
     let content: JSX.Element = <></>;
     switch (clientsStatus) {
         case "loading": content = <p>"loading clients..."</p>; break;
-        case "failed": content = <h2>*** {clientsError} ***</h2>; break;
+        case "failed": return <Navigate to="/authenticate" state={{prevUrl: location}} />;
         case "fulfilled": content = createContent();
     }
 

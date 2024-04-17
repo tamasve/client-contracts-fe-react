@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import type { AppDispatch } from '../data/store';
 import { authenticateUser, clearAuth, getAuthStatus, getAuthError, getUserName, getAccessToken } from '../data/authSlice';
@@ -10,6 +10,7 @@ import InputForm from '../components/InputForm';
 export default function AuthenticateUser() {      // mapping: "users/user/userId" - userId = taxnumber
     
     const navigate = useNavigate();
+    const location = useLocation();     // it brings the previous URL in its 'state' prop (see the invoking components)
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -24,25 +25,25 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
 
     
     useEffect( () => {
-
         console.log("useEffect does nothing but re-renders");
 
     }, [authError, authStatus, userName]);
 
 
-    const loginUser = async () => {
+    const loginUser = () => {
+        (async () => {
 
         console.log("login user...")
         try {
             dispatch( authenticateUser({...userObject}) ).unwrap();
             console.log("user authentication")
-
-            navigate("/");
+            if (location.state?.prevUrl) navigate(location.state.prevUrl);
         } catch (err) {
             console.error(`Failed to autheticate the user: ${err}`);
         }
+        })();
+        
     }
-    
 
     // -- return JSX: registration form --
 
@@ -58,7 +59,7 @@ export default function AuthenticateUser() {      // mapping: "users/user/userId
                     title={"Please, login..."}
                     buttonCaption={"Login"}
                     clazz="form"
-                    error={authStatus === "failed" ? authError : ""}
+                    error={authStatus === "failed" ? "Authentication failed" : ""}
                 />
 
             </div>
